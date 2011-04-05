@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/.lore/u97/mille168/test'
+let g:netrw_dirhist_2='/.lore/u97/mille168/cs252/lab3/test'
+let g:netrw_dirhist_3='/.lore/u97/mille168/test'
+let g:netrw_dirhist_4='/.lore/u97/mille168/.purple'
+let g:netrw_dirhist_5='/.lore/u97/mille168/.sunw'
+let g:netrw_dirhist_6='/.lore/u97/mille168/.cache'
+let g:netrw_dirhist_7='/.lore/u97/mille168/.subversion'
+let g:netrw_dirhist_8='/.lore/u97/mille168/public/www'

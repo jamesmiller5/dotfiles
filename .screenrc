@@ -1,0 +1,53 @@
+vbell off # turn off visual bell
+autodetach on # Autodetach session on hangup instead of terminating screen completely
+maptimeout 4
+#altscreen on
+
+#################
+# daveg's suped up screenrc
+# http://daveg.outer-rim.org
+#
+# Last Modified: Wed Dec 21 16:01:03 EST 2005
+
+# The caption line has the following entries
+# username@host | uptime | time - date | screens |
+#caption always "%{yK} $LOGNAME@%H | %l | %C:%s %A - %M-%d-%Y | %-Lw%50>%{Ky}%n%f* %t%{-}%+Lw%<%{- Wk}%{yK} | "
+
+### some basic stuff
+###
+#########################################################################
+#activity "%"                    # tell me when stuff happens!           #
+#crlf off                        # no thanks.                            #
+#defmonitor on                   # turn monitoring on                    #
+defscrollback 1000              # please sir, can i have some more?     #
+shell $SHELL                   # i'll take my default shell.           #
+startup_message off             # don't want this either.               #
+term $TERM                     # We'll use whatever is currently used  #
+
+# terminfo and termcap for nice 256 color terminal
+# # allow bold colors - necessary for some reason
+attrcolor b ".I" 
+# # tell screen how to set colors. AB = background, AF=foreground 
+# termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+# # erase background with current bg color 
+defbce "on" 
+
+bind j focus down
+bind k focus up
+bind h prev
+bind l next
+
+# Some systems dont expect F1-F4 keys to use VT100 codes, all purdue systems due
+terminfo xterm* k1=\EOP
+terminfo xterm* k2=\EOQ
+terminfo xterm* k3=\EOR
+terminfo xterm* k4=\EOS
+
+terminfo linux* k1=\E[11~
+terminfo linux* k2=\E[12~
+terminfo linux* k3=\E[13~
+terminfo linux* k4=\E[14~
+
+bindkey -k k1 prev         # F1 = screen 0
+bindkey -k k2 next         # F2 = screen 1
+bindkey -k k3 screen
