@@ -1,7 +1,7 @@
 vbell off # turn off visual bell
-autodetach on # Autodetach session on hangup instead of terminating screen completely
+autodetach on # Autodetach session on hangup instead of terminating screen completely (close your laptop with no fear!)
 maptimeout 4
-#altscreen on
+altscreen on
 
 #################
 # daveg's suped up screenrc
@@ -19,35 +19,44 @@ maptimeout 4
 #activity "%"                    # tell me when stuff happens!           #
 #crlf off                        # no thanks.                            #
 #defmonitor on                   # turn monitoring on                    #
-defscrollback 1000              # please sir, can i have some more?     #
-shell $SHELL                   # i'll take my default shell.           #
-startup_message off             # don't want this either.               #
-term $TERM                     # We'll use whatever is currently used  #
+defscrollback 1000               # please sir, can i have some more?     #
+shell $SHELL                     # i'll take my default shell.           #
+startup_message off              # don't want this either.               #
+term $TERM                       # We'll use whatever is currently used  #
+
+#always show were in screen, helps us keep track of how deep the shell inception goes
+#caption always
+
+#The title bar is not a good place for messages when in fullscreen mode
+hardstatus off
 
 # terminfo and termcap for nice 256 color terminal
 # # allow bold colors - necessary for some reason
 attrcolor b ".I" 
 # # tell screen how to set colors. AB = background, AF=foreground 
-# termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
+#termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
 # # erase background with current bg color 
 defbce "on" 
 
+#vim key bindings for moving between screens
 bind j focus down
 bind k focus up
 bind h prev
 bind l next
 
 # Some systems dont expect F1-F4 keys to use VT100 codes, all purdue systems due
+terminfo rxvt* k1=\E[11~
+terminfo rxvt* k2=\E[12~
+terminfo rxvt* k3=\E[13~
+terminfo rxvt* k4=\E[14~
+
+#Commet out if F1-F4 keys don't work
 terminfo xterm* k1=\EOP
 terminfo xterm* k2=\EOQ
 terminfo xterm* k3=\EOR
 terminfo xterm* k4=\EOS
 
-terminfo linux* k1=\E[11~
-terminfo linux* k2=\E[12~
-terminfo linux* k3=\E[13~
-terminfo linux* k4=\E[14~
-
-bindkey -k k1 prev         # F1 = screen 0
-bindkey -k k2 next         # F2 = screen 1
-bindkey -k k3 screen
+#f1 and f2 move between screens, 
+bindkey -k k1 prev         # F1 = screen prev
+bindkey -k k2 next         # F2 = screen next
+bindkey -k k3 screen       # F3 = new screen

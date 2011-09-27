@@ -36,7 +36,8 @@ syntax on
 set mouse=a
 set selectmode-=mouse "Use the mouse just like visual mode, so you can use vim commands on mouse selections, eg. 'x' to cut and 'y' to yank
 
-"This is if you have a dark background in your terminal, light is another option
+"This is should match your terminal background, white-on-black is the default
+"vim setting. For black-on-white choose 'light'
 set background=dark
 "set background=light
 
@@ -60,7 +61,7 @@ set scrolloff=4 "Keep 4 lines at minimum above & below the cursor when scrolling
 
 "These options are personal preference
 "set cursorline "Underline the current line the cursor is on.
-"set incsearch "highlight search matches as typed, may jar your mind while jumping around the file
+"set incsearch "highlight search matches as typed, may jar your mind while it jumps around the file
 
 "Upgrade the status line to give more usefull information
 set statusline=%F\ %m%r%w%y\ %=(%L\ loc)\ [#\%03.3b\ 0x\%02.2B]\ \ %l,%v\ \ %P

@@ -6,7 +6,7 @@
 if [ -r /usr/local/bin/defaultpaths ]; then
 	eval `/usr/local/bin/defaultpaths`
 else
-	if [ -n "`uname -n | grep purdue`" ]; then
+	if [ "`uname -n | grep purdue`" ]; then
 		echo "Couldn't find '/usr/local/bin/defaultpaths', things may be broken";
 	fi
 fi
@@ -17,25 +17,37 @@ umask 077
 # avoid problems with scp -- don't process the rest of the file if non-interactive
 [[ $- != *i* ]] && return
 
-#include our normal shell settings
-[ -r $HOME/.bashrc ] && . $HOME/.bashrc
+#Make sure screen windows all append command history and stay in sync between shared filesystems
+HISTSIZE=100
+export PROMPT_COMMAND="history -a"
+shopt -s histappend
 
-#show the amount of users on this host, as well as the load average
-[ -r $HOME/bin/host-users.sh ] && source ~/bin/host-users.sh
-echo "Current CPU load: `uptime|awk '{print $10" "$11" "$12;}'`"
+#our default text editor, could be emacs to
+export EDITOR=vim
 
-EDITOR=vim; export EDITOR
+#better pager than more
+export PAGER=less
 
+#show the amount of users on this host as well as the load average
+[ -x $HOME/bin/host-users.sh ] && ~/bin/host-users.sh
+
+#System specific settings
 case `uname -a` in
-*inux)
-	PAGER=less; export PAGER
+	
+	#SunOS specific config
+	SunOS*)
+		if [ "$TERM" = "rxvt" ]; then
+			#Lore doesn't have term definitions for rxvt (chromeos's terminal)
+			export TERM=xterm
+			export COLORTERM="rxvt -xpm"
+		fi
 	;;
-SunOS*)
-	PAGER=less; export PAGER
-	;;
-*)
-	PAGER=more; export PAGER
+
 esac
+
 
 #Standard backspace
 stty erase  intr 
+
+#include our normal shell settings
+[ -r $HOME/.bashrc ] && . $HOME/.bashrc
