@@ -88,6 +88,15 @@ filetype plugin on
 "imap <C-H> <BS>
 "inoremap <BS>
 
+" Automake using a screen window
+function! Automake()
+	if !$STY
+		"echo "Not in a screen" "for debugging, be silent if no screen
+		return
+	endif
+	let sty = strpart(matchstr($STY,"\\..*"), 1)
+	silent! exec "!screen -p 0 -S ".sty."-test -X eval 'stuff make'" | redraw!
+endfunction
 
 " Autocompletion using the TAB key
 " This function determines, whether we are on the start of the line text (then tab indents) or
@@ -109,5 +118,8 @@ if has("autocmd")
       \| exe "normal! g'\"" | endif
 
     " Trim Trailing white space on general files
-    autocmd FileType c,cpp,java,php,js,css,xml,xsl,s autocmd BufWritePre * :%s/[ \t\r]\+$//e
+    autocmd FileType c,cpp,java,php,js,css,xml,xsl,s,go autocmd BufWritePre * :%s/[ \t\r]\+$//e
+
+	"Automake on save
+	autocmd BufWritePost * call Automake()
 endif
