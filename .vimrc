@@ -95,7 +95,7 @@ function! Automake()
 		return
 	endif
 	let sty = strpart(matchstr($STY,"\\..*"), 1)
-	silent! exec "!screen -p 0 -S ".sty."-test -X eval 'stuff make'" | redraw!
+	silent! exec "!screen -p 0 -S ".sty."-test -X eval 'stuff make ^M'" | redraw!
 endfunction
 
 " Autocompletion using the TAB key
