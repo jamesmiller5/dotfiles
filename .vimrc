@@ -102,24 +102,28 @@ endfunction
 " This function determines, whether we are on the start of the line text (then tab indents) or
 " if we want to try autocompletion
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
+	let col = col('.') - 1
+	if !col || getline('.')[col - 1] !~ '\k'
+		return "\<tab>"
+	else
+		return "\<c-p>"
+	endif
 endfunction
 " Remap the tab key to select action with InsertTabWrapper
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 
 if has("autocmd")
-    " Have Vim jump to the last position when reopening a file
-    au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-      \| exe "normal! g'\"" | endif
+	" Have Vim jump to the last position when reopening a file
+	au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+				\| exe "normal! g'\"" | endif
 
-    " Trim Trailing white space on general files
-    autocmd FileType c,cpp,java,php,js,css,xml,xsl,s,go autocmd BufWritePre * :%s/[ \t\r]\+$//e
+	" Trim Trailing white space on general files
+	autocmd FileType c,cpp,java,php,js,css,xml,xsl,s,go autocmd BufWritePre * :%s/[ \t\r]\+$//e
 
 	"Automake on save
 	autocmd BufWritePost * call Automake()
+
+	"Check spelling when writing commits. Use 'z=' with the cursor on a word for
+	"suggested spelling. Check :help spell for more info
+	autocmd FileType gitcommit setlocal spell
 endif
