@@ -6,8 +6,8 @@
 # enable color support, should work with all modern terminals
 if [ "$TERM" != "dumb" ]; then
 
-	#Enable colors
-	if [ "`uname`" != "SunOS" ]; then
+	#Enable colors only when System is running Linux (SunOS and Darwin(mac) doesn't have GNU dicolors)
+	if [ "`uname`" == "Linux" ]; then
 		eval `dircolors -b`
 		alias ls="ls --color=auto"
 		alias grep="grep --color=auto"
