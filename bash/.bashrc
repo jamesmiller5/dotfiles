@@ -21,10 +21,13 @@ fi
 alias ..="cd .."
 alias l="ls -lah"
 
-#default for Purdue CS students
-alias mail=mailx 
-
 #bash ease of use tweaks
 set show-all-if-ambiguous on
 set show-all-if-unmodified on
 set completion-ignore-case on
+
+# Stuff only related to purdue systems.
+function legacy-purdue {
+	#default for Purdue CS students
+	alias mail=mailx
+}

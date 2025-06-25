@@ -1,0 +1,5 @@
+[user]
+	name="Jay Miller 5"
+	email="jay@jmiller5.com"
+[core]
+	excludesfile = ~/.gitignore # Simpler than installing to ~/.config/git/ignore.

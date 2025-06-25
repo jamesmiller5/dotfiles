@@ -1,0 +1,5 @@
+# taken from - https://stackoverflow.com/questions/4824188/git-ignore-vim-temporary-files
+# Ignore vim files:
+*~
+*.swp
+*.swo

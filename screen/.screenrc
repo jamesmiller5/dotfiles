@@ -1,7 +1,25 @@
 vbell off # turn off visual bell
 autodetach on # Autodetach session on hangup instead of terminating screen completely (close your laptop with no fear!)
 maptimeout 4
+
+# When flipping to "full term" apps like Vim, keep the previous shell history (alt history) instead of just whatever the application displayed.
 altscreen on
+
+# No splash screen please
+startup_message off
+
+# Setting TERM is not a simple task and has many downstream ramifications like mouse and color support.
+# term $TERM # can cause issues if your using Term specific features like say image rendering
+# term screen-256color # can fix or cause issues, your milage may vary.
+
+# Enable truecolor for terminal emulators that support it, almost all modern ones do
+truecolor on
+
+# Erase background with current bg color
+defbce on
+
+# Weird fix for bold colors
+# attrcolor b ".I"
 
 #################
 # daveg's suped up screenrc
@@ -20,9 +38,6 @@ altscreen on
 #crlf off                        # no thanks.                            #
 #defmonitor on                   # turn monitoring on                    #
 defscrollback 1000               # please sir, can i have some more?     #
-shell $SHELL                     # i'll take my default shell.           #
-startup_message off              # don't want this either.               #
-term $TERM                       # We'll use whatever is currently used  #
 
 #always show were in screen, helps us keep track of how deep the shell inception goes
 #caption always
@@ -32,11 +47,11 @@ hardstatus off
 
 # terminfo and termcap for nice 256 color terminal
 # # allow bold colors - necessary for some reason
-attrcolor b ".I" 
+# attrcolor b ".I" 
 # # tell screen how to set colors. AB = background, AF=foreground 
 #termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm' 
 # # erase background with current bg color 
-defbce "on" 
+# defbce "on" 
 
 #vim key bindings for moving between screens
 bind j focus down
@@ -45,18 +60,25 @@ bind h prev
 bind l next
 
 # Some systems dont expect F1-F4 keys to use VT100 codes, all purdue systems due
-terminfo rxvt* k1=\E[11~
-terminfo rxvt* k2=\E[12~
-terminfo rxvt* k3=\E[13~
-terminfo rxvt* k4=\E[14~
+#terminfo rxvt* k1=\E[11~
+#terminfo rxvt* k2=\E[12~
+#terminfo rxvt* k3=\E[13~
+#terminfo rxvt* k4=\E[14~
 
 #Commet out if F1-F4 keys don't work
-terminfo xterm* k1=\EOP
-terminfo xterm* k2=\EOQ
-terminfo xterm* k3=\EOR
-terminfo xterm* k4=\EOS
+#terminfo xterm* k1=\EOP
+#terminfo xterm* k2=\EOQ
+#terminfo xterm* k3=\EOR
+#terminfo xterm* k4=\EOS
 
 #f1 and f2 move between screens, 
 bindkey -k k1 prev         # F1 = screen prev
 bindkey -k k2 next         # F2 = screen next
 bindkey -k k3 screen       # F3 = new screen
+bindkey -k k4 detach       # F4 = detach
+
+# Enable the mouse
+# defmousetrack on
+# mousetrack on
+#TODO doesn't work  bindkey "^[[" mousetrack off
+#TODO doesn't work  bindkey "^[]" mousetrack on
