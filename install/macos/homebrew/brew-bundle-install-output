@@ -1,0 +1,71 @@
+❯ brew bundle install
+Tapping crusoecloud/cli
+Tapping homebrew/bundle
+Error: homebrew/bundle was deprecated. This tap is now empty and all its contents were either deleted or migrated.
+Tapping homebrew/bundle has failed!
+Tapping homebrew/services
+Error: homebrew/services was deprecated. This tap is now empty and all its contents were either deleted or migrated.
+Tapping homebrew/services has failed!
+==> Downloading https://formulae.brew.sh/api/formula.jws.json
+Installing ansifilter
+Using bash
+Using coreutils
+Using bats-core
+Installing chafa
+Installing cmake
+Installing cmake-docs
+Using colima
+Installing cowsay
+Installing csview
+Installing ddd
+Installing dict
+Installing diffutils
+Using docker
+Using docker-buildx
+Using docker-compose
+Using docker-credential-helper
+Installing exiftool
+Installing fio
+Installing gawk
+Installing gdb
+Using git
+Using node
+Installing gitlab-ci-local
+Using glab
+Installing glow
+Installing gum
+Using helm
+Installing imagemagick
+Installing jo
+Installing jq
+Installing neovim
+Using nmap
+Using openjdk
+Installing podman
+Using powerlevel10k
+Installing repo
+Installing screen
+Using shellcheck
+Using shfmt
+Installing sqlc
+Installing tmux
+Installing tree
+Installing uv
+Installing yamllint
+Using yarn
+Installing yq
+Installing crusoecloud/cli/crusoe
+Using 1password
+Using 1password-cli
+Using dbeaver-community
+Installing font-hack-nerd-font
+Using gcloud-cli
+Installing gimp
+Using iterm2
+Installing licecap
+Using tailscale-app
+Installing virtualbox
+Password:
+Installing visual-studio-code
+Installing vlc
+Installing codeium.codeium

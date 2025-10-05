@@ -1,0 +1,77 @@
+#!/bin/bash
+debug-ssh-git() {
+	echo 'Run GIT_SSH_COMMAND="ssh -v" git clone example'
+	# GIT_SSH_COMMAND="ssh -v" git clone example
+}
+
+# Bug in here where the newline is not respected.
+function url-decode {
+	# First decide if we have arugments or are reading from stdin.
+	local data
+	if [[ "$#" -eq 0 ]]; then
+		# Read from stdin.
+		data="$(cat)"
+	else
+		# Read from arguments, collapsing into a single string.
+		data="${*}"
+	fi
+	# Then look for any url-encoded characters.
+	local decoded="$(echo -n "$data" | sed 's/%\([0-9a-fA-F]\{2\}\)/\\x\1/g')"
+	# Finally, echo the decoded string and make sure echo both evaluates the \x escape sequence and without additional newlines.
+	echo -en "$decoded"
+}
+
+function url-encode {
+	# First decide if we have arugments or are reading from stdin.
+	local data
+
+	if [[ "$#" -eq 0 ]]; then
+		# Read from stdin.
+		data="$(cat)"
+	else
+		# Read from arguments, collapsing into a single string.
+		data="${*}"
+	fi
+
+	# Then look for any characters that need to be url-encoded.
+	# Ideas from - https://stackoverflow.com/questions/296536/how-to-urlencode-data
+	local string="${data}"
+	local strlen=${#string}
+	local encoded=""
+	local pos c o
+
+	for (( pos=0 ; pos<strlen ; pos++ )); do
+		c=${string:$pos:1}
+		case "$c" in
+			# From wikipedia characters to encode: "!#$&'()*+,/:;=?@[]" (and space)
+			"!" | "#" | "$" | "&" | "'" | "(" | ")" | "*" | "+" | "," | "/" | ":" | ";" | "=" | "?" | "@" | "[" | "]" | " " )
+				printf -v o "%%%x" "'$c"
+				;;
+			* )
+				o="${c}"
+		esac
+		encoded+="${o}"
+	done
+	echo -n "$encoded"
+}
+
+# utils
+juypter-notebook() {
+	python3 -m venv . && source bin/activate && pip install jupyter && pip install pandas && pip install nltk && bin/jupyter notebook
+}
+
+cleanup-desktop() {
+	local YEAR="$(date +%Y)"
+	local ARCHIVE="${HOME}/Documents/Archive/${YEAR}"
+
+	# Make the archive if it doesn't exist
+	mkdir -p "${ARCHIVE}"
+
+	#Find, On my Desktop
+	#files named "Screenshot*" and accessed more than 3 days ago
+	#then move them to my Archive
+	find "${HOME}/Desktop" \
+		-name "Screenshot*" -and -atime +3 \
+		-print \
+		-exec mv {} "${ARCHIVE}/" \;
+}

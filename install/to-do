@@ -1,0 +1,10 @@
+TODO need to organize these into a single stow command, or at least by repo.
+	Stow considers top level as a "package", perhaps . will work?
+
+	--dotfiles looks nice but is fluffy
+	Understanding stow is better
+	Symlinks are really nice, perl setup is also nice to test pre-packaged deps.
+	- manual fallback is not so nice, but kinda cool for "seed" ideas. Bootstrapping.
+
+	stow -vvv --dotfiles config
+	stow -vvv --delete <package>

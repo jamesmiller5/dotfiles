@@ -1,0 +1,109 @@
+--- Personal Notes on hardware customization ---
+Prep
+- Email myself personal package: pictures & configs
+-- .dotfiles
++ .vimrc
++ .screenrc
+missing: .${shell}rc
+
+Mac Customs
++ homebrew
++ iTerm2, darkmode, background & hotkey fullscreen (usually same as flux)
+   + iTerm2 -> Profiles -> Keys -> Presets: Natural Text Editing
+   + Check dotfiles/macos/iterm2 for configs.
++ Dock, magnify & Hide
++ Desktops, multi w/ backgrounds
++ System -> Keyboard -> Enable Function keys, text replacements "omw" remove T_T.
++ System -> Control Center - {Wifi, Bluetooth, Sound - always show}
+
++ Finder 
+- Add toolbars and stuff
+- Add homedir to quick pane
+- Default list view, remove grouping
+- Sort date created, 
+- Pictures (need gallery view)
+- - sort by Name, make default
+
+NOTABLE MISSING:
+ Shell
+	 Bash is my default
+	 zsh for Mac
+		# Turn on auto complete for zsh
+		+ autoload -Uz compinit && compinit
+	 (oil ?) - someday...
+ Shell Config
+	EDITOR=$(which vim)
+	- Without this git breaks on MacOS
+	.zshrc
+		- see to-send-zshrc
+		- TODO clean up that file
+
+	TODO clean up to-send-snippets
+		- .bash_profile
+		- .bashrc
+		- .zshrc
+		- .profile
+		- .zprofile
+		Really this should all be bramble + some basic config thing. 
+			-Maybe <sh+deps> -> enable stow -> enables bigger/better things.
+ Editor
+	Neovim (nvim) or Vim w/ term
+ Git Config (global)
+	Ignore vim swp files
+		~/.config/git/ignore - default if I don't setup a .gitconfig w/ an alt file
+		~/.config/git/hooks 
+		- TODO make .config/git a stow'able.
+		<<CONTENTS
+		# Get it, ignore "swa-p"!
+		.*.sw[a-p]
+		CONTENTS
+	TODO: Add this to my personal .tar
+ Editor Config
+	 ? - idea: Swap files diff location - https://vim.fandom.com/wiki/Remove_swap_and_backup_files_from_your_working_directory
+	- My rc files
+ TermMuxer
+	screen
+		- my config
+		- mouse support missing, breaks vim if used in screen
+		- TODO macos/tweaks/brew install screen
+	tmux - config
+		- mouse support missing, see https://superuser.com/questions/989505/pass-mouse-events-through-tmux
+ Config
+	- No Bramble
+	- Used a tarball to unpack my config, was kinda clunky
+	- Could be used for all-the-above
+ Software
+	(?) - Maybe gento/emerge thing, would be nice to get basics
+		- See TODO's above. 
+	Likely will be nix stuff (someday)
+        iterm2 - ~/export-dump.itermcolors
+	Shell Bookmarks - import & export a nice list, porbably need a perosnal section and shared.
+		Bookmarks - https://github.com/junegunn/fzf/wiki/Examples#bookmarks
+	Browser Bookmarks
+		need basic import/export
+		Orgmode for Jay, Job & overlap
+ Other
+	- ~/Pictures/personalization
+		- has my avatars, backgrounds and such, could be rolled into bramble for personalization and all the above
+			- see nix?
+		- also keep a list of Slack emoji's
+	- ~/src/shell-stuff/tomorrow-theme
+	- ~/src/shell-stuff/color tests and stuff
+
+TODO: could dump brew if its worth looking at my assumed software but nicer to transfer to nix for next project anyway.
+- brew bundle dump -> Brewfile
+- brew bundle install [./Brewfile] is amazing
+TODO: Add above to my personal .tar and see if we can use Bramble or another tool to distribute + update
+
++ Week 1
+  + jq, tree, csview
+
++ Week N
+  + LICEcap
+
+--- Onboard.sh ---
+Before:
+?
+
+After:
+(ssdd)
