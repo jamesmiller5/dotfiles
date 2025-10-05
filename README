@@ -1,3 +1,13 @@
 Author: Jay Miller V - jay@jmiller5.com
 
 My dotfiles.
+
+Submoules:
+❯ git submodule status
+[submodule "vim/.vim/pack/DetectIndent/start/detectindent"]
+	path = vim/.vim/pack/default/start/detectindent
+	url = https://github.com/ciaranm/detectindent.git
+c09ab6effc29ef913c531816eb980460f8dc9ed2 vim/.vim/pack/default/start/detectindent (heads/master)
+
+TODO
+- syntax.vim needs to be updated, orig for python detect and such with "/usr/bin/env -S uv --script ..."
