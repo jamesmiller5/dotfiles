@@ -78,7 +78,8 @@ let g:codeium_filetypes = {
 	\ "netrw": v:false,
 	\ "netrc": v:false,
 	\ }
-if function("codeium#GetStatusString") != 0
+if exists("*codeium#GetStatusString") != 0
+	" Do we have the codeium plugin loaded?
 	set statusline+=🤖%3{codeium#GetStatusString()}
 endif
 " Enable basic tab completion when Codeium is disabled or not installed.
@@ -137,8 +138,10 @@ if has("autocmd")
 
 	augroup TransparentBackground
 		autocmd!
-		"Allow transparent backgrounds
+		"Allow transparent backgrounds. See :help highlight-groups .
 		autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
+		autocmd ColorScheme * highlight Folded guibg=NONE ctermbg=NONE
+		autocmd ColorScheme * highlight FoldColumn guibg=NONE ctermbg=NONE
 	augroup END
 
 	augroup AutoMake
@@ -157,7 +160,31 @@ if has("autocmd")
 			\ | endif
 	augroup END
 
+	" Python specific additions.
+	augroup Python
+		autocmd!
+		"Python max line width.
+		autocmd FileType python setlocal colorcolumn=180 | setlocal textwidth=180
+		" TODO Fixup coverage to show gaps even in folds OR dont allow
+		" folds to be closed in missing coverage zones.
+		autocmd FileType python :Coveragepy show
+	augroup END
+
+	" Git specific additions.
+	augroup GitCommit
+		autocmd!
+		"Check spelling when writing commits. Use 'z=' with the cursor on a word for
+		"suggested spelling. Check :help spell for more info.
+		autocmd FileType gitcommit setlocal spell | setlocal colorcolumn=80 | setlocal textwidth=80
+		" Format for Markdown-like commits.
+		autocmd FileType gitcommit setlocal shiftwidth=2 | setlocal tabstop=2
+		" Show diff being committed in a new buffer.
+		autocmd FileType gitcommit ++once call GitCommitDetails()
+		autocmd FileType gitcommit syntax on
+	augroup END
+
 	augroup GitRebase
+		"Shows file --stat in a new buffer for interactive rebase.
 		autocmd!
 		autocmd FileType gitrebase ++once call GitRebaseDetails()
 		autocmd FileType gitrebase syntax on
@@ -238,6 +265,30 @@ function! GitRebaseDetails()
 	0d_
 endfunction
 command! GitRebaseDetails call GitRebaseDetails()
+
+" TODO support squash from rebase. Current command only shows the squash
+" commit, not the whole diff including the previous commit we are ammending.
+" Should be `git diff --staged HEAD~1`, need to verify when arg HEAD~1 is
+" valid.
+function! GitCommitDetails()
+	" TODO use EITHER:
+	" 1. git rev-parse --verify REBASE_HEAD
+	" 2. test -d \"$(git rev-parse --git-path rebase-merge)" || test -d \"$(git rev-parse --git-path rebase-apply)"
+	" to determine if we are in a rebase.
+
+	" Could probably do NEW: git diff --staged <hr> FULL: git diff --staged HEAD~1
+	let l:output = system("git diff --staged")
+	if v:shell_error != 0
+		echo "Command failed (".v:shell_error.") with output: " . l:output
+		return
+	endif
+	vert new
+	setlocal buftype=nofile
+	setlocal filetype=diff
+	put =l:output
+	0d_
+endfunction
+command! GitCommitDetails call GitCommitDetails()
 
 " Automake using a screen window. Simply have a screen nammed $something-test.
 function! Automake()
